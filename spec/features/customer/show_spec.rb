@@ -56,11 +56,29 @@ RSpec.describe "customer show" do
       expect(page).to have_content(@item_4.supermarket.name)
     end
   end
-# User Story 1
 
-# As a visitor, 
-# When I visit a customer show page,
-# I see the customer's name,
-# And I see its a list of its items
-# including the item's name, price, and the name of the supermarket that it belongs to.
+  describe "story 2" do
+    
+    it 'renders the form' do
+      visit "/customers/#{@customer_2.id}"
+
+      expect(find('form')).to have_content('id')
+    end
+   
+    xit 'adds item to customer' do
+      visit "/customers/#{@customer_2.id}"
+      expect
+    end
+  end
+
+# User Story 2
+
+# As a visitor,
+# When I visit a customer's show page,
+# Then I see a form to add an item to this customer.
+# When I fill in a field with the id of an existing item,
+# And I click submit,
+# Then I am redirected back to the customer's show page, 
+# And I see the item now listed under this customer's items.
+# (You do not have to test for a sad path, for example if the ID submitted is not an existing item)
 end
