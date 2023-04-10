@@ -1,6 +1,6 @@
 require 'rails_helper' 
 
-RSpec.desribe "supermarket show" do
+RSpec.describe "supermarket show" do
   before(:each) do
     @supermarket_1 = Supermarket.create(name: "WalMart", location: "Sam Walton Street")
     @supermarket_2 = Supermarket.create(name: "Kmart", location: "123 main street")
@@ -23,10 +23,18 @@ RSpec.desribe "supermarket show" do
     CustomerItem.create(customer: @customer_1, item: @item_4)
   end
 
-  it
+  it 'has distinct list of customers' do
+    visit "/supermarkets/#{@supermarket_1.id}"
+    require 'pry'; binding.pry
+    expect(page).to have_content(@customer_1)
+    expect(page).to have_content(@customer_2)
+    expect(page).to have_content(@customer_3)
+    expect(page).to have_content(@customer_4)
+    expect(page).to_not have_content(@customer_5)
+  end
 end
 
-Extension
+# Extension
 
 # As a visitor,
 # When I visit a supermarket's show page,
