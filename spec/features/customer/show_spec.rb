@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "customer show" do
   before(:each) do
-    @supermarket_1 = Supermarket.create(name: "WalMart", lcoation: "Sam Walton Street")
-    @supermarket_2 = Supermarket.create(name: "Kmart", lcoation: "123 main street")
-    @supermarket_3 = Supermarket.create(name: "Costco", lcoation: "Dallas")
+    @supermarket_1 = Supermarket.create(name: "WalMart", location: "Sam Walton Street")
+    @supermarket_2 = Supermarket.create(name: "Kmart", location: "123 main street")
+    @supermarket_3 = Supermarket.create(name: "Costco", location: "Dallas")
 
     @item_1 = @supermarket_1.items.create(name: "Banana", price: 1)
     @item_2 = @supermarket_1.items.create(name: "Orange", price: 1)
@@ -26,14 +26,34 @@ RSpec.describe "customer show" do
 
   describe "story 1" do
     it 'has customer name' do
-      visit "customer/#{customer_1.id}"
+      visit "customers/#{@customer_1.id}"
 
       expect(page).to have_content(@customer_1.name)
       expect(page).to_not have_content(@customer_2.name)
       
-      visit "customer/#{customer_3.id}"
+      visit "customers/#{@customer_3.id}"
 
-      expect(page).to have_content(@customer_3.id)
+      expect(page).to have_content(@customer_3.name)
+    end
+
+    it 'has a list of customer items' do
+      visit "customers/#{@customer_1.id}"
+      within "#items-#{@item_1.id}"
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@item_1.price)
+      expect(page).to have_content(@item_1.supermarket.name)
+      within "#items-#{@item_2.id}"
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@item_2.price)
+      expect(page).to have_content(@item_2.supermarket.name)
+      within "#items-#{@item_3.id}"
+      expect(page).to have_content(@item_3.name)
+      expect(page).to have_content(@item_3.price)
+      expect(page).to have_content(@item_3.supermarket.name)
+      within "#items-#{@item_4.id}"
+      expect(page).to have_content(@item_4.name)
+      expect(page).to have_content(@item_4.price)
+      expect(page).to have_content(@item_4.supermarket.name)
     end
   end
 # User Story 1

@@ -1,0 +1,9 @@
+<%=@customer.name%>
+
+Items: <% @items.each do |item| %>
+<div id="items-<%=item.id%>">
+ Name:<%=item.name%>
+ Price:<%=item.price%>
+ Supermarket:<%=item.supermarket.name%><br>
+ </div>
+<% end %>
