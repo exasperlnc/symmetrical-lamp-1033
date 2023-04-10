@@ -1,0 +1,3 @@
+Customers: <% Supermarket.customers_distinct(@supermarket.id).each do |customer| %>
+ Name:<%=customer%>
+<% end %>

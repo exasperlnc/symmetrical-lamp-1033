@@ -25,17 +25,19 @@ RSpec.describe "supermarket show" do
 
   it 'has distinct list of customers' do
     visit "/supermarkets/#{@supermarket_1.id}"
-    require 'pry'; binding.pry
-    expect(page).to have_content(@customer_1)
-    expect(page).to have_content(@customer_2)
-    expect(page).to have_content(@customer_3)
-    expect(page).to have_content(@customer_4)
-    expect(page).to_not have_content(@customer_5)
+
+    expect(page).to have_content(@customer_1.name)
+    expect(page).to have_content(@customer_2.name)
+    expect(page).to have_content(@customer_3.name)
+    expect(page).to have_content(@customer_4.name)
+    expect(page).to_not have_content(@customer_5.name)
+
+    visit "/supermarkets/#{@supermarket_2.id}"
+
+    expect(page).to have_content(@customer_1.name)
+    expect(page).to_not have_content(@customer_2.name)
+    expect(page).to_not have_content(@customer_3.name)
+    expect(page).to_not have_content(@customer_4.name)
+    expect(page).to have_content(@customer_5.name)
   end
 end
-
-# Extension
-
-# As a visitor,
-# When I visit a supermarket's show page,
-# Then I see a unique list of all customers that have shopped at the supermarket.
