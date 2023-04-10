@@ -38,22 +38,26 @@ RSpec.describe "customer show" do
 
     it 'has a list of customer items' do
       visit "customers/#{@customer_1.id}"
-      within "#items-#{@item_1.id}"
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_1.price)
-      expect(page).to have_content(@item_1.supermarket.name)
-      within "#items-#{@item_2.id}"
-      expect(page).to have_content(@item_2.name)
-      expect(page).to have_content(@item_2.price)
-      expect(page).to have_content(@item_2.supermarket.name)
-      within "#items-#{@item_3.id}"
-      expect(page).to have_content(@item_3.name)
-      expect(page).to have_content(@item_3.price)
-      expect(page).to have_content(@item_3.supermarket.name)
-      within "#items-#{@item_4.id}"
-      expect(page).to have_content(@item_4.name)
-      expect(page).to have_content(@item_4.price)
-      expect(page).to have_content(@item_4.supermarket.name)
+      within "#items-#{@item_1.id}"do
+        expect(page).to have_content(@item_1.name)
+        expect(page).to have_content(@item_1.price)
+        expect(page).to have_content(@item_1.supermarket.name)
+      end
+      within "#items-#{@item_2.id}" do
+        expect(page).to have_content(@item_2.name)
+        expect(page).to have_content(@item_2.price)
+        expect(page).to have_content(@item_2.supermarket.name)
+      end
+      within "#items-#{@item_3.id}" do
+        expect(page).to have_content(@item_3.name)
+        expect(page).to have_content(@item_3.price)
+        expect(page).to have_content(@item_3.supermarket.name)
+      end
+      within "#items-#{@item_4.id}" do
+        expect(page).to have_content(@item_4.name)
+        expect(page).to have_content(@item_4.price)
+        expect(page).to have_content(@item_4.supermarket.name)
+      end
     end
   end
 
@@ -62,12 +66,21 @@ RSpec.describe "customer show" do
     it 'renders the form' do
       visit "/customers/#{@customer_2.id}"
 
-      expect(find('form')).to have_content('id')
+      expect(find('form')).to have_content('Id')
     end
    
-    xit 'adds item to customer' do
+    it 'adds item to customer' do
       visit "/customers/#{@customer_2.id}"
-      expect
+      
+      fill_in 'id', with: @item_2.id
+      click_button 'Save'
+      save_and_open_page
+
+      within "#items-#{@item_2.id}" do
+        expect(page).to have_content(@item_2.name)
+        expect(page).to have_content(@item_2.price)
+        expect(page).to have_content(@item_2.supermarket.name)
+      end
     end
   end
 

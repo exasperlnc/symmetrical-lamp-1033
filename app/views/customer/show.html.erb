@@ -1,6 +1,7 @@
 <%=@customer.name%>
 
-<%=form_with url:'/customers', local: true do |f|%>
+<%=form_with url:'/customer_items', local: true do |f|%>
+
   <%= f.label :id %>
   <%= f.text_field :id %>
 
