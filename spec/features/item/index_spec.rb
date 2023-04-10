@@ -25,6 +25,7 @@ RSpec.describe "item index" do
 
   describe "Story 3" do
     it 'lists items' do
+      visit '/items'
       within "#items-#{@item_1.id}"do
         expect(page).to have_content(@item_1.name)
         expect(page).to have_content(@item_1.price)
